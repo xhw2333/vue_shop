@@ -2,8 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login/Login'
 import Index from '@/views/Index/Index';
-import Welcome from '@/views/Index/Welcome/Welcome'
-import User from '@/views/Index/User/User'
+import Welcome from '@/views/Index/Welcome/Welcome';
+import User from '@/views/Index/User/User';
+import Power from '@/views/Index/Power/Power';
+import Role from '@/views/Index/Power/Role';
 
 Vue.use(VueRouter)
 
@@ -21,7 +23,9 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: Welcome },
-      { path: '/users', component: User }
+      { path: '/users', component: User },
+      { path: '/rights', component: Power },
+      { path: '/roles', component: Role },
     ]
   }
 ]
@@ -37,9 +41,10 @@ router.beforeEach((to, from, next) => {
   //next()放行 next('/login') 强制跳转
 
   if (to.path === '/login') return next();
-  //获取token
 
+  //获取token
   const tokenStr = window.sessionStorage.getItem("token");
+  
   //无token强制跳转登陆页
   if (!tokenStr) return next('/login');
   next();
